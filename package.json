@@ -1,0 +1,34 @@
+{
+  "name": "encontra-pet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leandrolimadeveloper/Encontra-Pet.git"
+  },
+  "keywords": [],
+  "author": "Leandro de Sousa Lima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leandrolimadeveloper/Encontra-Pet/issues"
+  },
+  "homepage": "https://github.com/leandrolimadeveloper/Encontra-Pet#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.17.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "nodemon": "^2.0.16",
+    "sucrase": "^3.21.0"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
