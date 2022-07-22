@@ -1,7 +1,27 @@
+import * as Yup from 'yup'
 import User from '../models/User'
 
 class UserController {
     async store(req, res) {
+        const schema = Yup.object().shape({
+            name: Yup.string().required(),
+            email: Yup.string()
+                .required()
+                .email(),
+            password: Yup.string()
+                .required()
+                .min(8)
+        })
+
+        try {
+            await schema.validate(req.body)
+        } catch (err) {
+            return res.status(400).json({
+                error: true,
+                message: err.errors
+            })
+        }
+
         const userExists = await User.findOne({
             where: { email: req.body.email }
         })
@@ -13,6 +33,8 @@ class UserController {
         const { id, name, email } = await User.create(req.body)
 
         return res.json({
+            error: false,
+            message: 'Dados cadastrados com sucesso', 
             id,
             name,
             email
@@ -20,6 +42,29 @@ class UserController {
     }
 
     async update(req, res) {
+        const schema = Yup.object().shape({
+            name: Yup.string().required(),
+            email: Yup.string().email(),
+            oldPassword: Yup.string().min(8),
+            password: Yup.string()
+                .min(8)
+                .when('oldPassword', (oldPassword, field) => {
+                    oldPassword ? field.required() : field
+                }),
+                confirmPassword: Yup.string().when('password', (password, field) => 
+                    password ? field.required().oneOf([Yup.ref('password')]) : field
+                )
+        })
+
+        try {
+            await schema.validate(req.body)
+        } catch (err) {
+            return res.status(400).json({
+                error: true,
+                message: err.errors
+            })
+        }
+        
         const { email, password, oldPassword } = req.body
 
         const user = await User.findByPk(req.userId)
@@ -46,6 +91,8 @@ class UserController {
         const { id, name } = await user.update(req.body)
 
         res.json({
+            error: false,
+            message: 'Dados cadastrados com sucesso',
             id,
             name,
             email,
