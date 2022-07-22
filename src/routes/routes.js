@@ -4,6 +4,7 @@ import authMiddleware from '../app/middlewares/auth'
 
 import UserController from '../app/controllers/UserController'
 import SessionController from '../app/controllers/SessionController'
+import PetController from '../app/controllers/PetController'
 
 const routes = new Router()
 
@@ -14,5 +15,6 @@ routes.post('/sessions', SessionController.store)
 routes.use(authMiddleware)
 
 routes.put('/users', UserController.update)
+routes.post('/pets', PetController.store)
 
 export default routes;
