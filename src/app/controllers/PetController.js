@@ -2,6 +2,14 @@ import * as Yup from 'yup'
 import Pet from '../models/Pet'
 
 class PetController {
+    async index(req, res) {
+        const pets = await Pet.findAll({
+            where: {user_id: req.userId}
+        })
+
+        return res.json(pets)
+    }
+    
     async store(req, res) {
         const schema = Yup.object().shape({
             pet_name: Yup.string().required(),

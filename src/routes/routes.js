@@ -15,6 +15,8 @@ routes.post('/sessions', SessionController.store)
 routes.use(authMiddleware)
 
 routes.put('/users', UserController.update)
+
 routes.post('/pets', PetController.store)
+routes.get('/pets', PetController.index)
 
 export default routes;
