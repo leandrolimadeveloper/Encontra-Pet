@@ -1,4 +1,6 @@
 import { Router } from 'express'
+import multer from 'multer'
+import uploadConfig from '../config/upload'
 
 import authMiddleware from '../app/middlewares/auth'
 
@@ -7,6 +9,7 @@ import SessionController from '../app/controllers/SessionController'
 import PetController from '../app/controllers/PetController'
 
 const routes = new Router()
+const upload = multer(uploadConfig)
 
 routes.post('/users', UserController.store)
 routes.post('/sessions', SessionController.store)
@@ -16,7 +19,7 @@ routes.use(authMiddleware)
 
 routes.put('/users', UserController.update)
 
-routes.post('/pets', PetController.store)
+routes.post('/pets', upload.single('thumbnail'), PetController.store)
 routes.get('/pets', PetController.index)
 
 export default routes;
