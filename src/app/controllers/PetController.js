@@ -1,4 +1,5 @@
 import * as Yup from 'yup'
+// import User from '../models/User'
 import Pet from '../models/Pet'
 
 class PetController {
@@ -53,6 +54,34 @@ class PetController {
             error: false,
             message: 'Dados cadastrados com sucesso',
             pet_register 
+        })
+    }
+
+    async update(req, res) {
+        const { filename } = req.file
+        const user_id = req.userId
+        const { pet_id } = req.params
+
+        const { pet_name, type_of_pet, gender, breed, reward, last_seen, description } = req.body 
+        
+        const pet = await Pet.findByPk(pet_id)
+
+        await pet.update({
+            user_id: req.userId,
+            pet_name,
+            type_of_pet,
+            gender,
+            thumbnail: filename,
+            breed,
+            reward,
+            last_seen,
+            description
+        })
+
+        return res.json({
+            error: false,
+            message: 'Dados atualizados com sucesso',
+            pet
         })
     }
 }
