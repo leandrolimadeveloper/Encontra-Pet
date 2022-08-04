@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-// import User from '../models/User'
+import User from '../models/User'
 import Pet from '../models/Pet'
 
 class PetController {
@@ -34,7 +34,7 @@ class PetController {
                 message: err.errors
             })
         }
-        
+
         const { filename } = req.file
         const { pet_name, type_of_pet, gender, breed, reward, last_seen, description } = req.body
 
@@ -50,10 +50,10 @@ class PetController {
             description
         })
 
-        return res.json({ 
+        return res.json({
             error: false,
             message: 'Dados cadastrados com sucesso',
-            pet_register 
+            pet_register
         })
     }
 
@@ -62,12 +62,20 @@ class PetController {
         const user_id = req.userId
         const { pet_id } = req.params
 
-        const { pet_name, type_of_pet, gender, breed, reward, last_seen, description } = req.body 
-        
-        const pet = await Pet.findByPk(pet_id)
+        const pet = await Pet.findOne({ where: { id: pet_id } })
+
+        if (!pet) {
+            return res.status(404).json({ error: 'Dado não encontrado' })
+        }
+
+        if (String(user_id) !== String(pet.user_id)) {
+            return res.status(401).json({ error: 'Não autorizado' })
+        }
+
+        const { pet_name, type_of_pet, gender, breed, reward, last_seen, description } = req.body
 
         await pet.update({
-            user_id: req.userId,
+            user_id,
             pet_name,
             type_of_pet,
             gender,
@@ -82,6 +90,28 @@ class PetController {
             error: false,
             message: 'Dados atualizados com sucesso',
             pet
+        })
+    }
+
+    async destroy(req, res) {
+        const { pet_id } = req.body
+        const user_id = req.userId
+
+        const pet = await Pet.findOne({ where: { id: pet_id } })
+
+        if (!pet) {
+            return res.status(404).json({ error: 'Dado não encontrado' })
+        }
+
+        if (String(user_id) !== String(pet.user_id)) {
+            return res.status(401).json({ error: 'Não autorizado' })
+        }
+
+        await Pet.destroy({ where: { id: pet_id } })
+
+        return res.json({
+            error: false,
+            message: 'Dado excluído com sucesso'
         })
     }
 }

@@ -21,6 +21,7 @@ routes.put('/users', UserController.update)
 
 routes.post('/pets', upload.single('thumbnail'), PetController.store)
 routes.put('/pets/:pet_id', upload.single('thumbnail'), PetController.update)
+routes.delete('/pets', PetController.destroy)
 routes.get('/pets', PetController.index)
 
 export default routes;
