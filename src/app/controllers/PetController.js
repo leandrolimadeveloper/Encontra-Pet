@@ -58,6 +58,26 @@ class PetController {
     }
 
     async update(req, res) {
+        const schema = Yup.object().shape({
+            pet_name: Yup.string().required(),
+            type_of_pet: Yup.string().required(),
+            gender: Yup.string().required(),
+            thumbnail: Yup.string(),
+            breed: Yup.string(),
+            reward: Yup.boolean().required(),
+            last_seen: Yup.date(),
+            description: Yup.string().required()
+        })
+
+        try {
+            await schema.validate(req.body)
+        } catch (err) {
+            return res.status(400).json({
+                error: true,
+                message: err.errors
+            })
+        }
+        
         const { filename } = req.file
         const user_id = req.userId
         const { pet_id } = req.params
