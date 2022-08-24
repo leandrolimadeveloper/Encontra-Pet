@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 import express from 'express'
 import path from 'path'
 import routes from './routes/routes'
@@ -18,8 +20,9 @@ class App {
             '/files',
             express.static(path.resolve(__dirname, '..', 'uploads'))
         )
-        
+
         this.server.use(express.json())
+        this.server.use(express.urlencoded({extended: true}))
     }
 
     routes() {

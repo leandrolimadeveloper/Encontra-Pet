@@ -18,16 +18,16 @@ class Pet extends Model {
                 sequelize
             },
         )
-        
+
         this.addHook('beforeSave', pet => {
                 if (pet.thumbnail) {
-                    pet.thumbnail_url = `http://localhost:3333/files/${pet.thumbnail}`
+                    pet.thumbnail_url = `${process.env.LOCAL_URL}/files/${pet.thumbnail}`
                 }
         })
-        
+
         return this
     }
-    
+
 
     static associate(models) {
         this.belongsTo(models.User, {foreignKey: 'user_id', as: 'user'})

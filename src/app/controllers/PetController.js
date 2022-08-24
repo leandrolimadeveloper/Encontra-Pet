@@ -1,6 +1,10 @@
 import * as Yup from 'yup'
-import User from '../models/User'
+import multer from 'multer'
+import upload from '../../config/upload'
+
 import Pet from '../models/Pet'
+
+const image = multer(upload).single('thumbnail')
 
 class PetController {
     async index(req, res) {
@@ -36,7 +40,9 @@ class PetController {
         }
 
         const { filename } = req.file
-        const { pet_name, type_of_pet, gender, breed, reward, last_seen, description } = req.body
+        const user_id = req.userId
+
+        const { pet_name, type_of_pet, gender,  breed, reward, last_seen, description } = req.body
 
         const pet_register = await Pet.create({
             user_id: req.userId,
@@ -55,6 +61,8 @@ class PetController {
             message: 'Dados cadastrados com sucesso',
             pet_register
         })
+
+
     }
 
     async update(req, res) {
@@ -77,7 +85,7 @@ class PetController {
                 message: err.errors
             })
         }
-        
+
         const { filename } = req.file
         const user_id = req.userId
         const { pet_id } = req.params
@@ -109,7 +117,8 @@ class PetController {
         return res.json({
             error: false,
             message: 'Dados atualizados com sucesso',
-            pet
+            filename,
+            pet,
         })
     }
 
