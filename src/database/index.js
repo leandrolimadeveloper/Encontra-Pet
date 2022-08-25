@@ -16,20 +16,12 @@ class Database {
     async init() {
         this.connection = await new Sequelize(databaseConfig)
 
+        this.server.emit('Done')
+
         models
         .map(model => model.init(this.connection))
         .map(model => model.associate && model.associate(this.connection.models))
-
-        try {
-            if (this.connection && models) {
-                console.log('Database connected')
-            }
-        }
-        catch(err) {
-            console.log('Database error: ', err)
-        }
     }
-
 }
 
 export default new Database()

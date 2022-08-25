@@ -1,10 +1,10 @@
 import * as Yup from 'yup'
-import multer from 'multer'
-import upload from '../../config/upload'
+// import multer from 'multer'
+// import upload from '../../config/upload'
 
 import Pet from '../models/Pet'
 
-const image = multer(upload).single('thumbnail')
+// const image = multer(upload).single('thumbnail')
 
 class PetController {
     async index(req, res) {
@@ -16,7 +16,7 @@ class PetController {
     }
 
     async store(req, res) {
-        console.log(req.body)
+        // console.log(req.body)
         console.log(req.file)
 
         const schema = Yup.object().shape({

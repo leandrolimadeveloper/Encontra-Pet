@@ -1,47 +1,26 @@
 import multer from 'multer'
 import path from 'path'
-
-// const upload2 = multer(
-//     fileFilter = function (req, file, cb) {
-//         if (file.mimetype !== 'image/png' && file.mimetype !== 'image/jpeg') {
-//             return cb(new multer.MulterError('Arquivo precisa ser PNG ou JPG'))
-//         }
-
-//         return cb(null, true)
-//     },
-
-//     storage = multer.diskStorage({
-//         destination: path.resolve(__dirname, '..', '..', 'uploads'),
-//         filename: (req, file, cb) => {
-//             const ext = path.extname(file.originalname)
-//             const name = path.basename(file.originalname)
-
-//             cb(null, `${name}-${Date.now()}-${ext}`)
-//         }
-//     })
-// )
-
-// export default {
-//     fileFilter: (req, file, cb) => {
-//         if(file.mimetype !== 'image/png' && file.mimetype !== 'image/jpeg') {
-//             return cb(new multer.MulterError('Arquivo precisa ser PNG ou JPG'))
-//         }
-
-//         return cb(null, true)
-//     },
-
-//     storage: multer.diskStorage({
-//         destination: path.resolve(__dirname, '..', '..', 'uploads'),
-//         filename: (req, file, cb) => {
-//             const ext = path.extname(file.originalname)
-//             const name = path.basename(file.originalname)
-
-//             cb(null, `${name}-${Date.now()}-${ext}`)
-//         }
-//     })
-// }
+import crypto from 'crypto'
 
 export default {
+    dest: path.resolve(__dirname, '..', '..', 'tmp', 'uploads'),
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, path.resolve(__dirname, '..', '..', 'tmp', 'uploads'))
+        },
+        filename: (req, file, cb) => {
+            crypto.randomBytes(16, (err,  hash) => {
+                if (err) cb(err)
+
+                const fileName = `${hash.toString('hex')}-${file.originalname}`
+
+                cb(null, fileName)
+            })
+        },
+    }),
+    limits: {
+        fileSize: 10 * 1024 * 1024
+    },
     fileFilter: (req, file, cb) => {
         const allowedMimes = [
             'image/jpeg',
@@ -53,18 +32,7 @@ export default {
         if (allowedMimes.includes(file.mimetype)) {
             cb(null, true)
         } else {
-            return cb(new multer.MulterError('Arquivo precisa ser PNG ou JPG'))
-            // cb(new Error('Invalid file type'))
+            cb(new Error('Invalid file type'))
         }
-    },
-
-    storage: multer.diskStorage({
-        destination: path.resolve(__dirname, '..', '..', 'uploads'),
-        filename: (req, file, cb) => {
-            const ext = path.extname(file.originalname)
-            const name = path.basename(file.originalname)
-
-            cb(null, `${name}-${Date.now()}-${ext}`)
-        }
-    })
+    }
 }
