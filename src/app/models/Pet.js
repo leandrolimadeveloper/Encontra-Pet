@@ -21,14 +21,15 @@ class Pet extends Model {
         )
 
         this.addHook('beforeSave', pet => {
-            if (pet.thumbnail) {
+            if (upload.storage['s3']) {
+                pet.thumbnail_url = `${process.env.AWS_URL}/${pet.thumbnail}`
+            } else {
                 pet.thumbnail_url = `${process.env.LOCAL_URL}/files/${pet.thumbnail}`
             }
         })
 
         return this
     }
-
 
     static associate(models) {
         this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' })

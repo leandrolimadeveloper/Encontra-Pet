@@ -34,7 +34,7 @@ class PetController {
             })
         }
 
-        const { originalname: name, key, size, location: url = '' } = req.file
+        const { originalname: name, key, size, location } = req.file
         const user_id = req.userId
 
         const { pet_name, type_of_pet, gender, breed, reward, last_seen, description } = req.body
@@ -44,14 +44,14 @@ class PetController {
             pet_name,
             type_of_pet,
             gender,
-            name,
+            originalname: name,
             size,
             thumbnail: key,
             breed,
             reward,
             last_seen,
             description,
-            url
+            location
         })
 
         return res.json({
