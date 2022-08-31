@@ -1,4 +1,5 @@
 import sequelize, { Model, Sequelize } from "sequelize";
+import upload from "../../config/upload";
 
 class Pet extends Model {
     static init(sequelize) {
@@ -20,9 +21,9 @@ class Pet extends Model {
         )
 
         this.addHook('beforeSave', pet => {
-                if (pet.thumbnail) {
-                    pet.thumbnail_url = `${process.env.LOCAL_URL}/files/${pet.thumbnail}`
-                }
+            if (pet.thumbnail) {
+                pet.thumbnail_url = `${process.env.LOCAL_URL}/files/${pet.thumbnail}`
+            }
         })
 
         return this
@@ -30,7 +31,7 @@ class Pet extends Model {
 
 
     static associate(models) {
-        this.belongsTo(models.User, {foreignKey: 'user_id', as: 'user'})
+        this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' })
     }
 
 }

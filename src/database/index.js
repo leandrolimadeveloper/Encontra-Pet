@@ -1,4 +1,3 @@
-import express from 'express'
 import Sequelize from 'sequelize'
 import databaseConfig from '../config/database'
 
@@ -9,14 +8,11 @@ const models = [User, Pet]
 
 class Database {
     constructor() {
-        this.server = express()
         this.init()
     }
 
     async init() {
         this.connection = await new Sequelize(databaseConfig)
-
-        this.server.emit('Done')
 
         models
         .map(model => model.init(this.connection))

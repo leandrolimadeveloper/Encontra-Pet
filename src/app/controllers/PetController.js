@@ -1,10 +1,5 @@
 import * as Yup from 'yup'
-// import multer from 'multer'
-// import upload from '../../config/upload'
-
 import Pet from '../models/Pet'
-
-// const image = multer(upload).single('thumbnail')
 
 class PetController {
     async index(req, res) {
@@ -39,21 +34,24 @@ class PetController {
             })
         }
 
-        const { filename } = req.file
+        const { originalname: name, key, size, location: url = '' } = req.file
         const user_id = req.userId
 
-        const { pet_name, type_of_pet, gender,  breed, reward, last_seen, description } = req.body
+        const { pet_name, type_of_pet, gender, breed, reward, last_seen, description } = req.body
 
         const pet_register = await Pet.create({
             user_id: req.userId,
             pet_name,
             type_of_pet,
             gender,
-            thumbnail: filename,
+            name,
+            size,
+            thumbnail: key,
             breed,
             reward,
             last_seen,
-            description
+            description,
+            url
         })
 
         return res.json({
