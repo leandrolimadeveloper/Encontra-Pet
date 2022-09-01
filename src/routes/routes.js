@@ -11,12 +11,11 @@ import PetController from '../app/controllers/PetController'
 const routes = new Router()
 const upload = multer(uploadConfig)
 
-routes.get('/', (req, res) => {
-    res.send('Home')
-})
+routes.get('/', PetController.indexAll)
 
 routes.post('/users', UserController.store)
 routes.post('/sessions', SessionController.store)
+
 
 // All routes bellow this middleware need to be authenticated
 routes.use(authMiddleware)
@@ -24,9 +23,9 @@ routes.use(authMiddleware)
 routes.put('/users', UserController.update)
 
 routes.post('/pets', multer(upload).single('img'), PetController.store)
-// routes.put('/pets/:pet_id', upload.single('thumbnail'), PetController.update)
 routes.put('/pets/:pet_id', multer(upload).single('img'), PetController.update)
-routes.delete('/pets', PetController.destroy)
+routes.delete('/pets/:pet_id', PetController.destroy)
+
 routes.get('/pets', PetController.index)
 
 export default routes;

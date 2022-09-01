@@ -2,6 +2,12 @@ import * as Yup from 'yup'
 import Pet from '../models/Pet'
 
 class PetController {
+    async indexAll(req, res) {
+        const pets = await Pet.findAll()
+
+        return res.json(pets)
+    }
+
     async index(req, res) {
         const pets = await Pet.findAll({
             where: { user_id: req.userId }
@@ -113,7 +119,7 @@ class PetController {
     }
 
     async destroy(req, res) {
-        const { pet_id } = req.body
+        const { pet_id } = req.params
         const user_id = req.userId
 
         const pet = await Pet.findOne({ where: { id: pet_id } })
