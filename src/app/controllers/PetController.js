@@ -37,7 +37,7 @@ class PetController {
             })
         }
 
-        const { key, size } = req.file
+        let { key, size } = req.file
         const user_id = req.userId
 
         const { pet_name, type_of_pet, gender, breed, reward, last_seen, description } = req.body
