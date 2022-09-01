@@ -1,8 +1,10 @@
 require('dotenv').config()
 
 import express from 'express'
+import morgan from 'morgan'
 import path from 'path'
 import routes from './routes/routes'
+
 
 // Database
 import './database'
@@ -23,6 +25,7 @@ class App {
 
         this.server.use(express.json())
         this.server.use(express.urlencoded({ extended: true }))
+        this.server.use(morgan('dev'))
     }
 
     routes() {
