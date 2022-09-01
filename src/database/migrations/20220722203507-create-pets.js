@@ -25,8 +25,12 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      thumbnail: {
+      img: {
         type: Sequelize.STRING,
+        allowNull: true
+      },
+      size: {
+        type: Sequelize.INTEGER,
         allowNull: true
       },
       missing: {

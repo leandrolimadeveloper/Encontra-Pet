@@ -23,9 +23,9 @@ routes.use(authMiddleware)
 
 routes.put('/users', UserController.update)
 
-routes.post('/pets', multer(upload).single('thumbnail'), PetController.store)
+routes.post('/pets', multer(upload).single('img'), PetController.store)
 // routes.put('/pets/:pet_id', upload.single('thumbnail'), PetController.update)
-routes.put('/pets/:pet_id', PetController.update)
+routes.put('/pets/:pet_id', multer(upload).single('img'), PetController.update)
 routes.delete('/pets', PetController.destroy)
 routes.get('/pets', PetController.index)
 

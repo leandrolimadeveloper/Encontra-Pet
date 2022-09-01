@@ -11,14 +11,11 @@ class PetController {
     }
 
     async store(req, res) {
-        // console.log(req.body)
-        console.log(req.file)
-
         const schema = Yup.object().shape({
             pet_name: Yup.string().required(),
             type_of_pet: Yup.string().required(),
             gender: Yup.string().required(),
-            thumbnail: Yup.string(),
+            img: Yup.string(),
             breed: Yup.string(),
             reward: Yup.boolean().required(),
             last_seen: Yup.date(),
@@ -34,7 +31,7 @@ class PetController {
             })
         }
 
-        const { originalname: name, key, size, location } = req.file
+        const { key, size } = req.file
         const user_id = req.userId
 
         const { pet_name, type_of_pet, gender, breed, reward, last_seen, description } = req.body
@@ -44,14 +41,12 @@ class PetController {
             pet_name,
             type_of_pet,
             gender,
-            originalname: name,
             size,
-            thumbnail: key,
+            img: key,
             breed,
             reward,
             last_seen,
             description,
-            location
         })
 
         return res.json({
@@ -59,8 +54,6 @@ class PetController {
             message: 'Dados cadastrados com sucesso',
             pet_register
         })
-
-
     }
 
     async update(req, res) {
@@ -68,7 +61,7 @@ class PetController {
             pet_name: Yup.string().required(),
             type_of_pet: Yup.string().required(),
             gender: Yup.string().required(),
-            thumbnail: Yup.string(),
+            img: Yup.string(),
             breed: Yup.string(),
             reward: Yup.boolean().required(),
             last_seen: Yup.date(),
@@ -84,7 +77,7 @@ class PetController {
             })
         }
 
-        const { filename } = req.file
+        const { key, size } = req.file
         const user_id = req.userId
         const { pet_id } = req.params
 
@@ -98,25 +91,24 @@ class PetController {
             return res.status(401).json({ error: 'Não autorizado' })
         }
 
-        const { pet_name, type_of_pet, gender, breed, reward, last_seen, description } = req.body
+        const { pet_name, type_of_pet, gender, breed, reward, last_seen } = req.body
 
         await pet.update({
             user_id,
             pet_name,
             type_of_pet,
             gender,
-            thumbnail: filename,
+            img: key,
+            size,
             breed,
             reward,
             last_seen,
-            description
         })
 
         return res.json({
             error: false,
             message: 'Dados atualizados com sucesso',
-            filename,
-            pet,
+            pet
         })
     }
 

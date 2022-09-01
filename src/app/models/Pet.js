@@ -8,8 +8,9 @@ class Pet extends Model {
                 pet_name: Sequelize.STRING,
                 type_of_pet: Sequelize.STRING,
                 gender: Sequelize.STRING,
-                thumbnail: Sequelize.STRING,
-                thumbnail_url: Sequelize.VIRTUAL,
+                img: Sequelize.STRING,
+                img_url: Sequelize.VIRTUAL,
+                size: Sequelize.INTEGER,
                 breed: Sequelize.STRING,
                 reward: Sequelize.BOOLEAN,
                 last_seen: Sequelize.DATE,
@@ -22,9 +23,9 @@ class Pet extends Model {
 
         this.addHook('beforeSave', pet => {
             if (upload.storage['s3']) {
-                pet.thumbnail_url = `${process.env.AWS_URL}/${pet.thumbnail}`
+                pet.img_url = `${process.env.AWS_URL}/${pet.img}`
             } else {
-                pet.thumbnail_url = `${process.env.LOCAL_URL}/files/${pet.thumbnail}`
+                pet.img_url = `${process.env.LOCAL_URL}/files/${pet.img}`
             }
         })
 
