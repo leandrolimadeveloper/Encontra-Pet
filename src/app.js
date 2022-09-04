@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 import express from 'express'
+import cors from 'cors'
 import morgan from 'morgan'
 import path from 'path'
 import routes from './routes/routes'
@@ -18,6 +19,8 @@ class App {
     }
 
     middlewares() {
+        this.server.use(cors())
+
         this.server.use(
             '/files',
             express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
