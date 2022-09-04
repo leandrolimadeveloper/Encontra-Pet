@@ -7,15 +7,15 @@ import authMiddleware from '../app/middlewares/auth'
 import UserController from '../app/controllers/UserController'
 import SessionController from '../app/controllers/SessionController'
 import PetController from '../app/controllers/PetController'
+import Dashboard from '../app/controllers/Dashboard'
 
 const routes = new Router()
 const upload = multer(uploadConfig)
 
-routes.get('/', PetController.indexAll)
+routes.get('/', Dashboard.show)
 
 routes.post('/users', UserController.store)
 routes.post('/sessions', SessionController.store)
-
 
 // All routes bellow this middleware need to be authenticated
 routes.use(authMiddleware)
