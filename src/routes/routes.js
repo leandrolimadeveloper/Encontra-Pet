@@ -12,7 +12,7 @@ import Dashboard from '../app/controllers/Dashboard'
 const routes = new Router()
 const upload = multer(uploadConfig)
 
-routes.get('/', Dashboard.show)
+routes.get('/dashboard', Dashboard.show)
 
 routes.post('/users', UserController.store)
 routes.post('/sessions', SessionController.store)

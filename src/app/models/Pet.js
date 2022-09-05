@@ -14,6 +14,7 @@ class Pet extends Model {
                 breed: Sequelize.STRING,
                 reward: Sequelize.BOOLEAN,
                 last_seen: Sequelize.DATE,
+                missing: Sequelize.BOOLEAN,
                 description: Sequelize.STRING,
             },
             {

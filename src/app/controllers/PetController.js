@@ -19,6 +19,7 @@ class PetController {
             breed: Yup.string(),
             reward: Yup.boolean().required(),
             last_seen: Yup.date(),
+            missing: Yup.boolean(),
             description: Yup.string().required()
         })
 
@@ -34,10 +35,10 @@ class PetController {
         let { key, size } = req.file
         const user_id = req.userId
 
-        const { pet_name, type_of_pet, gender, breed, reward, last_seen, description } = req.body
+        const { pet_name, type_of_pet, gender, breed, reward, last_seen, missing, description } = req.body
 
         const pet_register = await Pet.create({
-            user_id: req.userId,
+            user_id,
             pet_name,
             type_of_pet,
             gender,
@@ -46,7 +47,8 @@ class PetController {
             breed,
             reward,
             last_seen,
-            description,
+            missing,
+            description
         })
 
         return res.json({
