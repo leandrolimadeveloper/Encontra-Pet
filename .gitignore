@@ -11,7 +11,8 @@ lerna-debug.log*
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Tmp folder
-!tmp/uploads/.gitkeep
+tmp/*
+!tmp/.gitkeep
 
 # Runtime data
 pids
