@@ -2,10 +2,14 @@ import Address from '../models/Address'
 import User from '../models/User'
 
 class AddressController {
-    // async index(req, res) {
-    //     const user_id = req.userId
+    async index(req, res) {
+        const user_id = req.userId
+        const user = await User.findByPk(user_id, {
+            include: {association: 'addresses'}
+        })
 
-    // }
+        return res.json(user)
+    }
 
     async store(req, res) {
         const user_id  = req.userId

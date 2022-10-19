@@ -30,5 +30,6 @@ routes.delete('/pets/:pet_id', PetController.destroy)
 routes.get('/pets', PetController.index)
 
 routes.post('/informations', AddressController.store)
+routes.get('/informations', AddressController.index)
 
 export default routes;
