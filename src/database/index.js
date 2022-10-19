@@ -3,8 +3,10 @@ import databaseConfig from '../config/database'
 
 import User from '../app/models/User'
 import Pet from '../app/models/Pet'
+import Address from '../app/models/Address'
 
-const models = [User, Pet]
+const models = [User, Pet, Address]
+// const models = [User, Address]
 
 class Database {
     constructor() {
@@ -13,10 +15,9 @@ class Database {
 
     async init() {
         this.connection = await new Sequelize(databaseConfig)
-
         models
-        .map(model => model.init(this.connection))
-        .map(model => model.associate && model.associate(this.connection.models))
+            .map(model => model.init(this.connection))
+            .map(model => model.associate && model.associate(this.connection.models))
     }
 }
 

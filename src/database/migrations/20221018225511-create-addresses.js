@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('user_informations', {
+    return queryInterface.createTable('addresses', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -16,13 +16,9 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      photo: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
       street: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       number: {
         type: Sequelize.INTEGER,
@@ -30,15 +26,15 @@ module.exports = {
       },
       state: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       city: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       zipcode: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -52,6 +48,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('user_informations')
+    return queryInterface.dropTable('addresses')
   }
 };

@@ -1,4 +1,4 @@
-import sequelize, { Model, Sequelize } from "sequelize";
+import Sequelize, { Model } from "sequelize";
 import upload from "../../config/upload";
 
 class Pet extends Model {

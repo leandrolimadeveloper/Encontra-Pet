@@ -1,11 +1,11 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
 
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import path from 'path'
 import routes from './routes/routes'
-
 
 // Database
 import './database'

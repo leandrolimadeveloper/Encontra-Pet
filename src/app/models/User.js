@@ -24,10 +24,13 @@ class User extends Model {
         return this
     }
 
+    // static associate(models) {
+    //     this.hasMany(models.UserInformation, { foreignKey: 'user_id', as: 'user_informations'})
+    // }
+
     checkPassword(password) {
         return bcrypt.compare(password, this.password_hash)
     }
 }
-
 
 export default User

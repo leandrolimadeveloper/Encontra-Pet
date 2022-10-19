@@ -7,7 +7,8 @@ import authMiddleware from '../app/middlewares/auth'
 import UserController from '../app/controllers/UserController'
 import SessionController from '../app/controllers/SessionController'
 import PetController from '../app/controllers/PetController'
-import Dashboard from '../app/controllers/Dashboard'
+import Dashboard from '../app/controllers/DashboardController'
+import AddressController from '../app/controllers/AddressController'
 
 const routes = new Router()
 const upload = multer(uploadConfig)
@@ -27,5 +28,7 @@ routes.put('/pets/:pet_id', multer(upload).single('img'), PetController.update)
 routes.delete('/pets/:pet_id', PetController.destroy)
 
 routes.get('/pets', PetController.index)
+
+routes.post('/informations', AddressController.store)
 
 export default routes;
