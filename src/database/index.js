@@ -6,7 +6,6 @@ import Pet from '../app/models/Pet'
 import Address from '../app/models/Address'
 
 const models = [User, Pet, Address]
-// const models = [User, Address]
 
 class Database {
     constructor() {
