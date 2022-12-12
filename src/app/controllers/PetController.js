@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import Pet from '../models/Pet'
+import Pet from '../models/Pet.js'
 
 class PetController {
     async index(req, res) {

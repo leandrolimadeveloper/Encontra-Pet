@@ -1,14 +1,14 @@
 import { Router } from 'express'
 import multer from 'multer'
-import uploadConfig from '../config/upload'
+import uploadConfig from '../config/upload.js'
 
-import authMiddleware from '../app/middlewares/auth'
+import authMiddleware from '../app/middlewares/auth.js'
 
-import UserController from '../app/controllers/UserController'
-import SessionController from '../app/controllers/SessionController'
-import PetController from '../app/controllers/PetController'
-import Dashboard from '../app/controllers/DashboardController'
-import AddressController from '../app/controllers/AddressController'
+import UserController from '../app/controllers/UserController.js'
+import SessionController from '../app/controllers/SessionController.js'
+import PetController from '../app/controllers/PetController.js'
+import Dashboard from '../app/controllers/DashboardController.js'
+import AddressController from '../app/controllers/AddressController.js'
 
 const routes = new Router()
 const upload = multer(uploadConfig)

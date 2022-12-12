@@ -5,10 +5,10 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import path from 'path'
-import routes from './routes/routes'
+import routes from './routes/routes.js'
 
 // Database
-import './database'
+import './database/index.js'
 
 class App {
     constructor() {

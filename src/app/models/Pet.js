@@ -1,5 +1,5 @@
-import Sequelize, { Model } from "sequelize";
-import upload from "../../config/upload";
+import Sequelize, { Model } from 'sequelize';
+import upload from '../../config/upload.js';
 
 class Pet extends Model {
     static init(sequelize) {

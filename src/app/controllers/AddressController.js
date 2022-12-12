@@ -1,5 +1,5 @@
-import Address from '../models/Address'
-import User from '../models/User'
+import Address from '../models/Address.js'
+import User from '../models/User.js'
 
 class AddressController {
     async index(req, res) {

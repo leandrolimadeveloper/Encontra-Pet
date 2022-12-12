@@ -1,9 +1,9 @@
 import Sequelize from 'sequelize'
-import databaseConfig from '../config/database'
+import databaseConfig from '../config/database.js'
 
-import User from '../app/models/User'
-import Pet from '../app/models/Pet'
-import Address from '../app/models/Address'
+import User from '../app/models/User.js'
+import Pet from '../app/models/Pet.js'
+import Address from '../app/models/Address.js'
 
 const models = [User, Pet, Address]
 

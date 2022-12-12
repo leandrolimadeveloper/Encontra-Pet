@@ -1,4 +1,4 @@
-import Pet from "../models/Pet"
+import Pet from "../models/Pet.js"
 
 class Dashboard {
     async show(req, res) {

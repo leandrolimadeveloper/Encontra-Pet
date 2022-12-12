@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken'
-import User from '../models/User'
+import User from '../models/User.js'
 
-import authConfig from '../../config/auth'
+import authConfig from '../../config/auth.js'
 
 class SessionController {
     async store(req, res) {
         const { email, password } = req.body
-        
+
         // Verifying if the email exists
         const user = await User.findOne({ where: {email: email} })
 
@@ -20,7 +20,7 @@ class SessionController {
         }
 
         const {id, name } = user
-        
+
         return res.json({
             user: {
                 id,

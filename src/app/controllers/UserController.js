@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import User from '../models/User'
+import User from '../models/User.js'
 
 class UserController {
     async store(req, res) {
@@ -34,7 +34,7 @@ class UserController {
 
         return res.json({
             error: false,
-            message: 'Dados cadastrados com sucesso', 
+            message: 'Dados cadastrados com sucesso',
             id,
             name,
             email
@@ -51,7 +51,7 @@ class UserController {
                 .when('oldPassword', (oldPassword, field) => {
                     oldPassword ? field.required() : field
                 }),
-                confirmPassword: Yup.string().when('password', (password, field) => 
+                confirmPassword: Yup.string().when('password', (password, field) =>
                     password ? field.required().oneOf([Yup.ref('password')]) : field
                 )
         })
@@ -64,7 +64,7 @@ class UserController {
                 message: err.errors
             })
         }
-        
+
         const { email, password, oldPassword } = req.body
 
         const user = await User.findByPk(req.userId)
@@ -80,7 +80,7 @@ class UserController {
         }
 
         if (oldPassword && !(await user.checkPassword(oldPassword))) {
-            
+
             return res.status(401).json({ error: 'Senha atual incorreta' })
         }
 
