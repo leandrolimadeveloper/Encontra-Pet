@@ -4,8 +4,8 @@ dotenv.config()
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
-import path from 'path'
 import routes from './routes/routes.js'
+import pathInCommonJs from './pathCommonJs.cjs'
 
 // Database
 import './database/index.js'
@@ -21,10 +21,12 @@ class App {
     middlewares() {
         this.server.use(cors())
 
-        this.server.use(
-            '/files',
-            express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
-        )
+        // this.server.use(
+        //     '/files',
+        //     express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+        // )
+
+        pathInCommonJs()
 
         this.server.use(express.json())
         this.server.use(express.urlencoded({ extended: true }))

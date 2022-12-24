@@ -1,8 +1,18 @@
-import multer from 'multer'
-import path from 'path'
-import crypto from 'crypto'
-import AWS from 'aws-sdk'
-import multerS3 from 'multer-s3'
+require('dotenv').config()
+// import dotenv from 'dotenv'
+// dotenv.config()
+
+const multer = require('multer')
+const path = require('path')
+const crypto = require('crypto')
+const AWS = require('aws-sdk')
+const multerS3 = require('multer-s3')
+// import multer from 'multer'
+
+// import path from 'path'
+// import crypto from 'crypto'
+// import AWS from 'aws-sdk'
+// import multerS3 from 'multer-s3'
 
 const storageTypes = {
     local: multer.diskStorage({
@@ -36,7 +46,7 @@ const storageTypes = {
     })
 }
 
-export default {
+module.exports = {
     dest: path.resolve(__dirname, '..', '..', 'tmp', 'uploads'),
     storage: storageTypes[process.env.STORAGE_TYPE],
     limits: {
