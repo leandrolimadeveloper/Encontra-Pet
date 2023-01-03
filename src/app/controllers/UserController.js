@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import User from '../models/User.js';
+import Pet from '../models/Pet.js';
 
 class UserController {
     async store(req, res) {
@@ -94,6 +95,31 @@ class UserController {
             name,
             email,
         });
+    }
+
+    async destroy(req, res) {
+        const user = await User.findByPk(req.userId);
+
+        await Pet.findAll()
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' })
+        }
+
+        await Pet.destroy({
+            where: {
+                user_id: user.id
+            }
+        })
+
+        await User.destroy({
+            user,
+            where: {
+                id: user.id,
+            }
+        })
+
+        return res.json()
     }
 }
 
