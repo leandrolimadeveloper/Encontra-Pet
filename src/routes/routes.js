@@ -16,6 +16,7 @@ const upload = multer(uploadConfig)
 routes.get('/dashboard', Dashboard.show)
 
 routes.post('/users', UserController.store)
+routes.get('/users', UserController.index)
 routes.post('/sessions', SessionController.store)
 
 // All routes bellow this middleware need to be authenticated
@@ -32,5 +33,7 @@ routes.get('/pets', PetController.index)
 
 routes.post('/informations', AddressController.store)
 routes.get('/informations', AddressController.index)
+routes.put('/informations/:address_id', AddressController.update)
+routes.delete('/informations/:address_id', AddressController.destroy)
 
 export default routes;
