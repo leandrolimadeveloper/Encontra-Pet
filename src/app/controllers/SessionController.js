@@ -11,12 +11,12 @@ class SessionController {
         const user = await User.findOne({ where: {email: email} })
 
         if (!user) {
-            return res.status(401).json({ error: 'Usuário não existe'})
+            return res.status(401).json({ error: "User doesn't exists"})
         }
 
         // Verifying if the passwords match
         if (!(await user.checkPassword(password))) {
-            return res.status(401).json({ error: 'Senha incorreta' })
+            return res.status(401).json({ error: 'The password is incorrect' })
         }
 
         const {id, name } = user
@@ -25,7 +25,7 @@ class SessionController {
             user: {
                 id,
                 name,
-                    email
+                email
             },
             token: jwt.sign({ id }, authConfig.secret, {
                 expiresIn: authConfig.expiresIn

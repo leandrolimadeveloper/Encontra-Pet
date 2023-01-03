@@ -53,7 +53,7 @@ class PetController {
 
         return res.json({
             error: false,
-            message: 'Dados cadastrados com sucesso',
+            message: 'Data successfully registered',
             pet_register
         })
     }
@@ -86,11 +86,11 @@ class PetController {
         const pet = await Pet.findOne({ where: { id: pet_id } })
 
         if (!pet) {
-            return res.status(404).json({ error: 'Dado não encontrado' })
+            return res.status(404).json({ error: 'Data not found' })
         }
 
         if (String(user_id) !== String(pet.user_id)) {
-            return res.status(401).json({ error: 'Não autorizado' })
+            return res.status(401).json({ error: 'Not authorized' })
         }
 
         const { pet_name, type_of_pet, gender, breed, reward, last_seen } = req.body
@@ -109,7 +109,7 @@ class PetController {
 
         return res.json({
             error: false,
-            message: 'Dados atualizados com sucesso',
+            message: 'Data successfully updated',
             pet
         })
     }
@@ -121,18 +121,18 @@ class PetController {
         const pet = await Pet.findOne({ where: { id: pet_id } })
 
         if (!pet) {
-            return res.status(404).json({ error: 'Dado não encontrado' })
+            return res.status(404).json({ error: 'Data not found' })
         }
 
         if (String(user_id) !== String(pet.user_id)) {
-            return res.status(401).json({ error: 'Não autorizado' })
+            return res.status(401).json({ error: 'Not authorized' })
         }
 
         await Pet.destroy({ where: { id: pet_id } })
 
         return res.json({
             error: false,
-            message: 'Dado excluído com sucesso'
+            message: 'Data successfully deleted'
         })
     }
 }
