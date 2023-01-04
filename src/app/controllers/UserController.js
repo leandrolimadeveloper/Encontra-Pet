@@ -1,10 +1,14 @@
 import * as Yup from 'yup';
+import sequelize from 'sequelize';
 import User from '../models/User.js';
 import Pet from '../models/Pet.js';
 
+
 class UserController {
     async index(req, res) {
-        const users = await User.findAll()
+        const users = await User.findAll({
+            attributes: ['id', 'name', 'email']
+        })
 
         return res.json(users)
     }
