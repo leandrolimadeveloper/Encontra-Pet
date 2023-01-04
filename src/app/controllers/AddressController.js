@@ -35,18 +35,26 @@ class AddressController {
     }
 
     async update(req, res) {
-        const { userAddress_id } = req.params
-        const user = await User.findByPk(req.userId)
+        const { address_id } = req.params
+        const user_id = req.userId
 
-        if (!user) {
+        if (!user_id) {
             return res.status(404).json({ error: 'User not found' })
         }
 
-        const userAddress = await Address.findAll({
+        const userAddress = await Address.findOne({
             where: {
-                user_id: user.id
+                id: address_id
             }
         })
+
+        if (!userAddress) {
+            return res.status(404).json({ error: 'Address not found' })
+        }
+
+        if (String(user_id) !== String(userAddress.user_id)) {
+            return res.status(401).json({ error: 'Not authorized' })
+        }
 
         const { street, number, state, city, zipcode } = req.body
 
@@ -55,7 +63,7 @@ class AddressController {
             number,
             state,
             city,
-            zipcode
+            zipcode,
         })
 
         return res.json({
@@ -86,7 +94,7 @@ class AddressController {
         }
 
         if (String(user_id) !== String(userAddress.user_id)) {
-            return res.status(401).json({error: 'Not authorized'})
+            return res.status(401).json({ error: 'Not authorized' })
         }
 
         await Address.destroy({
