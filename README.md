@@ -1,10 +1,8 @@
-# Encontra-Pet
-
 <h1 align="center">Encontra Pet</h1>
 <p align="center">
     <a href="#sobre">Sobre |</a>
     <a href="#tecnologias">Tecnologias |</a>
-    <a href="#instalação">Instalação de dependências e uso</a>
+    <a href="#instalacao">Instalação de dependências e uso</a>
 </p>
 
 ## Sobre
@@ -12,7 +10,7 @@ Projeto de API que busca ajudar tutores de pets a encontrarem seus pets desapare
 
 ![image](https://user-images.githubusercontent.com/76854209/206924695-70b03c16-1f3d-4f21-b5e0-d74f645e8a74.png)
 
-**Vídeo de demonstração**:<br>
+### Vídeo de demonstração
 [![Encontra Pet](https://img.youtube.com/vi/45p6H8p8Qyw/0.jpg)](https://www.youtube.com/watch?v=45p6H8p8Qyw "Asssistir no YouTube")
 
 ## Tecnologias
@@ -22,7 +20,7 @@ Projeto de API que busca ajudar tutores de pets a encontrarem seus pets desapare
     <li><a href="https://aws.amazon.com/" alt="Amazon AWS">Amazon AWS</a></li>
 </ul>
 
-## Instalação e uso 
+<h2 id="instalacao">Instalação e uso</h2>
 > Este guia assume que você já tenha o Node.js instalado, um banco de dados PostgreSQL, com os seus dados de conexão com o banco, e uma conta na AWS, com bucket criado e demais informações e configurações.
 
 Criar arquivo .env com as variáveis ambiente. Seguir modelo disponível no arquivo .env.example.
